@@ -93,9 +93,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     public void actionPerformed(ActionEvent e) {
         timer.start();
             if (play) {
-                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))) {
+                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX + 50, 550, 50, 8))) {
                     ballYdir = -ballYdir;
                 }
+                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 50, 8))) {
+                    ballYdir = -ballYdir;
+                    ballXdir = -ballXdir;
+                }
+//                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 1, 8))) {
+//                    ballYdir = -ballYdir;
+//                }
 
                 A:
                 for (int i = 0; i < map.map.length; i++) {
@@ -187,7 +194,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                    bricksBroken = 0;
                    level++;
                    total = randomNum.getTotal();
-                System.out.println(total);
                    map = new MapGenerator(x, y);
 
                    repaint();
