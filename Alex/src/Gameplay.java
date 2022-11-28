@@ -8,8 +8,9 @@ import java.awt.event.KeyListener;
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean play = false;
     private int score = 0;
+    private RandomNum randomNum;
 
-    private int totalBricks = 21;
+    private int totalBricks;
 
     private Timer timer;
     private int delay = 8;
@@ -22,11 +23,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int ballYdir = -2;
     private int bricksBroken = 0;
     private MapGenerator map;
-    private MapGenerator map1;
+    private int x;
+    private int y;
+    private int total;
+    private int level = 1;
 
     public Gameplay(){
         map = new MapGenerator(3, 7);
-        map1 = new MapGenerator(4, 8);
+        randomNum = new RandomNum();
+        total = randomNum.getInitialTotal();
+        if(level == 1) {
+            x = randomNum.getInitialX();
+            y = randomNum.getInitialY();
+        }
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -41,9 +50,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
         //map
         map.draw((Graphics2D) g);
-        if(bricksBroken >= 21){
-            map1.draw((Graphics2D) g);
-        }
 
         //borders
         g.setColor(Color.YELLOW);
@@ -75,12 +81,17 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             g.setFont(new Font("serif", Font.BOLD, 20));
             g.drawString("Press Enter to Restart", 230, 350);
         }
+        if(bricksBroken == x*y){
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("Level Complete!", 230, 300);
+            g.drawString("Press Shift For Next Level", 190, 350);
+        }
 
         g.dispose();
     }
     public void actionPerformed(ActionEvent e) {
         timer.start();
-        if(bricksBroken < 21) {
             if (play) {
                 if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))) {
                     ballYdir = -ballYdir;
@@ -128,60 +139,15 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 if (ballPosX > 670) {
                     ballXdir = -ballXdir;
                 }
-            }
         }
-
-
-        if(bricksBroken >= 21) {
-
-            if (play) {
-                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))) {
-                    ballYdir = -ballYdir;
-                }
-
-                B:for (int i = 0; i < map1.map.length; i++) {
-                    for (int j = 0; j < map1.map[0].length; j++) {
-                        if (map1.map[i][j] > 0) {
-                            int brickX = j * map1.brickWidth + 80;
-                            int brickY = i * map1.brickHeight + 50;
-                            int brickWidth = map1.brickWidth;
-                            int brickHeight = map1.brickHeight;
-
-                            Rectangle rect = new Rectangle(brickX, brickY, brickWidth, brickHeight);
-                            Rectangle ballRect = new Rectangle(ballPosX, ballPosY, 20, 20);
-                            Rectangle brickRect = rect;
-
-                            if (ballRect.intersects(brickRect)) {
-                                map1.setBrickValue(0, i, j);
-                                totalBricks--;
-                                score += 5;
-                                bricksBroken++;
-
-                                if (ballPosX + 19 <= brickRect.x || ballPosX + 1 >= brickRect.x + brickRect.width) {
-                                    ballXdir = -ballXdir;
-                                } else {
-                                    ballYdir = -ballYdir;
-                                }
-                                break B;
-                            }
-                        }
-                    }
-                }
-
-                ballPosX += ballXdir;
-                ballPosY += ballYdir;
-
-                if (ballPosX < 0) {
-                    ballXdir = -ballXdir;
-                }
-                if (ballPosY < 0) {
-                    ballYdir = -ballYdir;
-                }
-                if (ballPosX > 670) {
-                    ballXdir = -ballXdir;
-                }
-            }
-        }
+//            if (bricksBroken == 21){
+//                ballPosX = 200;
+//                ballPosY = 350;
+//            }
+//            if(bricksBroken == x*y){
+//                ballPosX = 200;
+//                ballPosY = 350;
+//            }
 
         repaint();
     }
@@ -207,20 +173,26 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 repaint();
             }
         }
-//        if (e.getKeyCode() == KeyEvent.VK_SHIFT){
-//            if(bricksBroken == 21) {
-//                   play = true;
-//                   ballPosX = 200;
-//                   ballPosY = 350;
-//                   ballXdir = -1;
-//                   ballYdir = -2;
-//                   playerX = 310;
-//                   totalBricks = 28;
-//                   map = new MapGenerator(4, 7);
-//
-//                   repaint();
-//            }
-//        }
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT){
+            if(bricksBroken == x * y) {
+                   play = false;
+                   x = randomNum.getX();
+                   y = randomNum.getY();
+                   ballPosX = 200;
+                   ballPosY = 350;
+                   ballXdir = -1;
+                   ballYdir = -2;
+                   playerX = 310;
+                   totalBricks = x * y;
+                   bricksBroken = 0;
+                   level++;
+                   total = randomNum.getTotal();
+                System.out.println(total);
+                   map = new MapGenerator(x, y);
+
+                   repaint();
+            }
+        }
 
         if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             if(playerX >= 600){
