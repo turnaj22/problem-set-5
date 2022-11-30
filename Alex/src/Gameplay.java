@@ -67,22 +67,37 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.fillRect(playerX, 550, 100, 8);
 
         //ball
-        if(randomNum.ballColor() == 0){
-            g.setColor(Color.GREEN);
-        }
-        if(randomNum.ballColor() == 1){
-            g.setColor(Color.BLUE);
-        }
-        if(randomNum.ballColor() == 2){
-            g.setColor(Color.PINK);
-        }
-        if(randomNum.ballColor() == 3){
-            g.setColor(Color.red);
-        }
-        if(randomNum.ballColor() == 4){
-            g.setColor(Color.ORANGE);
-        }
-//        g.setColor(Color.PINK);
+       if(bricksBroken >= 15) {
+           if (randomNum.ballColor() == 0) {
+               g.setColor(Color.GREEN);
+           }
+           if (randomNum.ballColor() == 1) {
+               g.setColor(Color.BLUE);
+           }
+           if (randomNum.ballColor() == 2) {
+               g.setColor(Color.PINK);
+           }
+           if (randomNum.ballColor() == 3) {
+               g.setColor(Color.red);
+           }
+           if (randomNum.ballColor() == 4) {
+               g.setColor(Color.ORANGE);
+           }
+       }
+       if(bricksBroken < 15) {
+           if(level == 1) {
+               g.setColor(Color.PINK);
+           }
+           if(level == 2) {
+               g.setColor(Color.GREEN);
+           }
+           if(level == 3) {
+               g.setColor(Color.blue);
+           }
+           if(level == 4) {
+               g.setColor(Color.ORANGE);
+           }
+       }
         g.fillOval(ballPosX, ballPosY, 20, 20);
 
         if(ballPosY > 570){
