@@ -27,6 +27,9 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int y;
     private int total;
     private int level = 1;
+    private int flag = 0;
+    private int scoreboard = 0;
+    private int flag2 = 0;
 
     public Gameplay(){
         map = new MapGenerator(3, 7);
@@ -48,8 +51,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.black);
         g.fillRect(1,1, 692, 592);
 
-        //map
-        map.draw((Graphics2D) g);
 
         //borders
         g.setColor(Color.YELLOW);
@@ -57,71 +58,110 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.fillRect(0,0,692, 3);
         g.fillRect(691,0,3, 592);
 
-        //score
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("serif", Font.BOLD, 25));
-        g.drawString("Score: " + score, 570, 30);
 
-        //paddle
-        g.setColor(Color.GREEN);
-        g.fillRect(playerX, 550, 100, 8);
-
-        //ball
-       if(bricksBroken >= 15) {
-           if (randomNum.ballColor() == 0) {
-               g.setColor(Color.GREEN);
-           }
-           if (randomNum.ballColor() == 1) {
-               g.setColor(Color.BLUE);
-           }
-           if (randomNum.ballColor() == 2) {
-               g.setColor(Color.PINK);
-           }
-           if (randomNum.ballColor() == 3) {
-               g.setColor(Color.red);
-           }
-           if (randomNum.ballColor() == 4) {
-               g.setColor(Color.ORANGE);
-           }
-       }
-       if(bricksBroken < 15) {
-           if(level == 1) {
-               g.setColor(Color.PINK);
-           }
-           if(level == 2) {
-               g.setColor(Color.GREEN);
-           }
-           if(level == 3) {
-               g.setColor(Color.blue);
-           }
-           if(level == 4) {
-               g.setColor(Color.ORANGE);
-           }
-       }
-        g.fillOval(ballPosX, ballPosY, 20, 20);
-
-        if(ballPosY > 570){
-            play = false;
-            ballXdir = 0;
-            ballYdir = 0;
-            g.setColor(Color.RED);
-            g.setFont(new Font("serif", Font.BOLD, 30));
-            g.drawString("Game Over  Score: " + score, 190, 300);
-
-            g.setFont(new Font("serif", Font.BOLD, 20));
-            g.drawString("Press Enter to Restart", 230, 350);
-        }
-        if(bricksBroken == x*y){
+        if(scoreboard == 1){
+            g.setColor(Color.BLACK);
+            g.fillRect(1,1, 692, 592);
             g.setColor(Color.GREEN);
-            g.setFont(new Font("serif", Font.BOLD, 30));
-            g.drawString("Level Complete!", 230, 300);
-            g.drawString("Press Shift For Next Level", 190, 350);
+            g.setFont(new Font("serif", Font.BOLD, 50));
+            g.drawString("Top 4 Players", 200, 200);
+            g.setFont(new Font("serif", Font.BOLD, 25));
+            g.drawString("Name", 230, 260);
+            g.drawString("1: Alex", 220, 290);
+            g.drawString("2: Troy", 220, 320);
+            g.drawString("3: Mattias", 220, 350);
+            g.drawString("4: Josh", 220, 380);
+            g.drawString("Score", 400, 260);
+            g.drawString("1,000", 400, 290);
+            g.drawString("1,000", 400, 320);
+            g.drawString("1,000", 400, 350);
+            g.drawString("1,000", 400, 380);
+            g.drawString("Press escape to leave", 20, 30);
         }
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("serif", Font.BOLD, 25));
-        g.drawString("Level: " + level, 20, 30);
 
-        g.dispose();
+        if(flag == 0) {
+            //welcome screen
+            g.setColor(Color.GREEN);
+            g.setFont(new Font("serif", Font.BOLD, 50));
+            g.drawString("Brick Breaker", 200, 200);
+            g.setFont(new Font("serif", Font.BOLD, 25));
+            g.drawString("Press p to play", 275, 325);
+            g.setFont(new Font("serif", Font.BOLD, 25));
+            g.drawString("Press tab for scoreboard", 220, 360);
+        }
+
+
+        if(flag == 1 && flag2 == 1) {
+            flag = 1;
+            //map
+            map.draw((Graphics2D) g);
+
+            //score
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("serif", Font.BOLD, 25));
+            g.drawString("Score: " + score, 570, 30);
+
+            //paddle
+            g.setColor(Color.GREEN);
+            g.fillRect(playerX, 550, 100, 8);
+
+            //ball
+            if (bricksBroken >= 15) {
+                if (randomNum.ballColor() == 0) {
+                    g.setColor(Color.GREEN);
+                }
+                if (randomNum.ballColor() == 1) {
+                    g.setColor(Color.BLUE);
+                }
+                if (randomNum.ballColor() == 2) {
+                    g.setColor(Color.PINK);
+                }
+                if (randomNum.ballColor() == 3) {
+                    g.setColor(Color.red);
+                }
+                if (randomNum.ballColor() == 4) {
+                    g.setColor(Color.ORANGE);
+                }
+            }
+            if (bricksBroken < 15) {
+                if (level == 1) {
+                    g.setColor(Color.PINK);
+                }
+                if (level == 2) {
+                    g.setColor(Color.GREEN);
+                }
+                if (level == 3) {
+                    g.setColor(Color.blue);
+                }
+                if (level == 4) {
+                    g.setColor(Color.ORANGE);
+                }
+            }
+            g.fillOval(ballPosX, ballPosY, 20, 20);
+
+            if (ballPosY > 570) {
+                play = false;
+                ballXdir = 0;
+                ballYdir = 0;
+                g.setColor(Color.RED);
+                g.setFont(new Font("serif", Font.BOLD, 30));
+                g.drawString("Game Over  Score: " + score, 190, 300);
+
+                g.setFont(new Font("serif", Font.BOLD, 20));
+                g.drawString("Press Enter to Restart", 230, 350);
+            }
+            if (bricksBroken == x * y) {
+                g.setColor(Color.GREEN);
+                g.setFont(new Font("serif", Font.BOLD, 30));
+                g.drawString("Level Complete!", 230, 300);
+                g.drawString("Press Shift For Next Level", 190, 350);
+            }
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("serif", Font.BOLD, 25));
+            g.drawString("Level: " + level, 20, 30);
+
+            g.dispose();
+        }
     }
     public void actionPerformed(ActionEvent e) {
         timer.start();
@@ -249,6 +289,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             else{
                 moveLeft();
             }
+        }
+        if(e.getKeyCode() == KeyEvent.VK_P){
+            flag = 1;
+            flag2 = 1;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_TAB){
+            flag2 = 0;
+            flag = 1;
+            scoreboard = 1;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            flag = 0;
+            scoreboard = 0;
         }
     }
 
