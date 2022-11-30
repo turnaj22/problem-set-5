@@ -5,6 +5,7 @@ public class RandomNum {
     private int y;
     private int total;
     private int randomColor;
+    private int randomPower;
     Random rand = new Random();
 
     public RandomNum(){
@@ -40,5 +41,9 @@ public class RandomNum {
     public int ballColor(){
         randomColor = rand.nextInt(4);
         return randomColor;
+    }
+    public int powerUp(){
+        randomPower = rand.nextInt(8);
+        return randomPower;
     }
 }
