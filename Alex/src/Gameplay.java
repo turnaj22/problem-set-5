@@ -454,11 +454,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     public void moveRight(){
         play = true;
-        playerX += 50;
+        playerX += 35;
     }
     public void moveLeft(){
         play = true;
-        playerX -= 50;
+        playerX -= 35;
     }
 //
 }

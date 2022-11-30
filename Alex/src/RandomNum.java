@@ -43,7 +43,7 @@ public class RandomNum {
         return randomColor;
     }
     public int powerUp(){
-        randomPower = rand.nextInt(8);
+        randomPower = rand.nextInt(6);
         return randomPower;
     }
 }
