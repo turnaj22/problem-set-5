@@ -60,14 +60,20 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         //score
         g.setColor(Color.WHITE);
         g.setFont(new Font("serif", Font.BOLD, 25));
-        g.drawString("" + score, 590, 30);
+        g.drawString("Score: " + score, 570, 30);
 
         //paddle
         g.setColor(Color.GREEN);
         g.fillRect(playerX, 550, 100, 8);
 
         //ball
-        g.setColor(Color.PINK);
+        if(randomNum.ballColor() == 0){
+            g.setColor(Color.GREEN);
+        }
+        if(randomNum.ballColor() == 1){
+            g.setColor(Color.GREEN);
+        }
+//        g.setColor(Color.PINK);
         g.fillOval(ballPosX, ballPosY, 20, 20);
 
         if(ballPosY > 570){
@@ -87,22 +93,25 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             g.drawString("Level Complete!", 230, 300);
             g.drawString("Press Shift For Next Level", 190, 350);
         }
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("serif", Font.BOLD, 25));
+        g.drawString("Level: " + level, 20, 30);
 
         g.dispose();
     }
     public void actionPerformed(ActionEvent e) {
         timer.start();
             if (play) {
-                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX + 50, 550, 50, 8))) {
+                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX + 50, 550, 49, 8))) {
                     ballYdir = -ballYdir;
                 }
-                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 50, 8))) {
+                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 49, 8))) {
                     ballYdir = -ballYdir;
                     ballXdir = -ballXdir;
                 }
-//                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 1, 8))) {
-//                    ballYdir = -ballYdir;
-//                }
+                if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX + 50, 550, 1, 8))) {
+                    ballYdir = -ballYdir;
+                }
 
                 A:
                 for (int i = 0; i < map.map.length; i++) {
@@ -151,10 +160,10 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 //                ballPosX = 200;
 //                ballPosY = 350;
 //            }
-//            if(bricksBroken == x*y){
-//                ballPosX = 200;
-//                ballPosY = 350;
-//            }
+            if(bricksBroken == x*y){
+                ballPosX = 200;
+                ballPosY = 350;
+            }
 
         repaint();
     }

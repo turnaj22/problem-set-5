@@ -4,6 +4,7 @@ public class RandomNum {
     private int x;
     private int y;
     private int total;
+    private int randomColor;
     Random rand = new Random();
 
     public RandomNum(){
@@ -35,5 +36,9 @@ public class RandomNum {
     public int getTotal() {
         total = x * y;
         return total;
+    }
+    public int ballColor(){
+        randomColor = rand.nextInt(4);
+        return randomColor;
     }
 }
