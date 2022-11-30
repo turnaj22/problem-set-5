@@ -71,7 +71,16 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             g.setColor(Color.GREEN);
         }
         if(randomNum.ballColor() == 1){
-            g.setColor(Color.GREEN);
+            g.setColor(Color.BLUE);
+        }
+        if(randomNum.ballColor() == 2){
+            g.setColor(Color.PINK);
+        }
+        if(randomNum.ballColor() == 3){
+            g.setColor(Color.red);
+        }
+        if(randomNum.ballColor() == 4){
+            g.setColor(Color.ORANGE);
         }
 //        g.setColor(Color.PINK);
         g.fillOval(ballPosX, ballPosY, 20, 20);
