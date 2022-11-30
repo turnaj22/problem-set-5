@@ -365,6 +365,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             if(bricksBroken == x*y){
                 ballPosX = 200;
                 ballPosY = 350;
+                ballPosX1 = 200;
+                ballPosY1 = 350;
             }
             repaint();
 
