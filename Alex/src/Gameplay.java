@@ -31,6 +31,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int scoreboard = 0;
     private int flag2 = 0;
 
+
     public Gameplay(){
         map = new MapGenerator(3, 7);
         randomNum = new RandomNum();
@@ -145,7 +146,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 ballYdir = 0;
                 g.setColor(Color.RED);
                 g.setFont(new Font("serif", Font.BOLD, 30));
-                g.drawString("Game Over  Score: " + score, 190, 300);
+                g.drawString("Game Over Score: " + score, 190, 300);
 
                 g.setFont(new Font("serif", Font.BOLD, 20));
                 g.drawString("Press Enter to Restart", 230, 350);
@@ -228,8 +229,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 ballPosX = 200;
                 ballPosY = 350;
             }
+            repaint();
 
-        repaint();
     }
 
     public void keyTyped(KeyEvent e) {
@@ -312,11 +313,11 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     public void moveRight(){
         play = true;
-        playerX += 30;
+        playerX += 50;
     }
     public void moveLeft(){
         play = true;
-        playerX -= 30;
+        playerX -= 50;
     }
 //
 }
