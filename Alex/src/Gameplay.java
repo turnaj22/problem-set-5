@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -8,6 +9,7 @@ import java.awt.event.KeyListener;
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean play = false;
     private int score = 0;
+    private Menu menu;
     private RandomNum randomNum;
 
     private int totalBricks;
@@ -94,6 +96,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             g.drawString("1,000", 400, 380);
             g.drawString("Press escape to leave", 20, 30);
         }
+//        menu.paint();
 
         if(flag == 0) {
             //welcome screen

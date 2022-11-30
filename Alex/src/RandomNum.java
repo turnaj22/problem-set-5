@@ -1,6 +1,5 @@
 import java.util.Random;
-
-public class RandomNum {
+public class RandomNum extends Random{
     private int x;
     private int y;
     private int total;
