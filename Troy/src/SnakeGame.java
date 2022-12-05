@@ -16,6 +16,11 @@ public class SnakeGame extends JFrame implements Runnable, KeyListener {
 
     }
 
+    public static void main(String[] args) {
+        SnakeGame game = new SnakeGame();
+        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     public void paint(Graphics g){
         gfx.setColor(Color.black);
         gfx.fillRect(0,0,400,400);
