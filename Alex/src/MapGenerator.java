@@ -34,6 +34,26 @@ public class MapGenerator {
             }
         }
 
+        double newBorder = Math.random();
+        if (newBorder >= 0.0 && newBorder <= 0.2) {
+            g.setColor(Color.GREEN);
+        }
+        if (newBorder >= 0.2 && newBorder <= 0.4) {
+            g.setColor(Color.ORANGE);
+        }
+        if (newBorder >= 0.4 && newBorder <= 0.6) {
+            g.setColor(Color.YELLOW);
+        }
+        if (newBorder >= 0.6 && newBorder <= 0.8) {
+            g.setColor(Color.RED);
+        } else if (newBorder >= 0.8) {
+            g.setColor(Color.BLUE);
+        }
+
+        g.fillRect(0, 0, 3, 592);
+        g.fillRect(0, 0, 692, 3);
+        g.fillRect(691, 0, 3, 592);
+
     }
 
 
