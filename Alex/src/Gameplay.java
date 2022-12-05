@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private boolean play = false;
@@ -47,6 +48,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int ballXdir1 = -1;
     private int ballYdir1 = -2;
     private int flag4 = 1;
+
+    private Random rndm;
 
 
     public Gameplay(){
@@ -114,6 +117,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
             flag = 1;
             //map
             map.draw((Graphics2D) g);
+
 
             //score
             g.setColor(Color.WHITE);
@@ -241,6 +245,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 g.setFont(new Font("serif", Font.BOLD, 30));
                 g.drawString("Level Complete!", 230, 300);
                 g.drawString("Press Shift For Next Level", 190, 350);
+
             }
             g.setColor(Color.WHITE);
             g.setFont(new Font("serif", Font.BOLD, 25));
@@ -414,6 +419,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                    powerUp = 0;
                    level++;
                    total = randomNum.getTotal();
+
+
                    map = new MapGenerator(x, y);
 
                    repaint();

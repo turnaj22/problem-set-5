@@ -5,6 +5,9 @@ public class MapGenerator {
     public int brickWidth;
     public int brickHeight;
 
+
+
+
     public MapGenerator(int row, int col){
         map = new int[row][col];
         for(int i = 0; i < map.length; i++){
@@ -12,7 +15,6 @@ public class MapGenerator {
                 map[i][j]= 1;
             }
         }
-
         brickHeight = 150/row;
         brickWidth = 540/col;
     }
@@ -23,15 +25,20 @@ public class MapGenerator {
                 if(map[i][j] > 0){
                     g.setColor(Color.WHITE);
                     g.fillRect(j * brickWidth + 88, i * brickHeight + 50, brickWidth, brickHeight);
-
                     g.setStroke(new BasicStroke(3));
                     g.setColor(Color.BLACK);
                     g.drawRect(j * brickWidth + 88, i * brickHeight + 50, brickWidth, brickHeight);
                 }
 
+
             }
         }
+
     }
+
+
+
+
 
     public void setBrickValue(int value, int row, int col){
         map[row][col] = value;
