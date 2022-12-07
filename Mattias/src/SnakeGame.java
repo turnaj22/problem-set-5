@@ -3,14 +3,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Scanner;
 
 
 public class SnakeGame extends JFrame implements Runnable, KeyListener {
 
     Snake snake;
+    SnakeGame game;
     Graphics g;
     Thread thread;
     Token token;
+    Token token2;
 
     boolean gameOver;
 
@@ -24,12 +27,13 @@ public class SnakeGame extends JFrame implements Runnable, KeyListener {
     public SnakeGame() {
 
         gameOver = false;
-        this.setSize(500, 500);
+        this.setSize(400, 400);
         this.setTitle("Snake Game");
         this.setVisible(true);  // Needed here for Graphics to work properly
         this.addKeyListener(this);
         snake = new Snake();
         token = new Token(snake);
+        token2 = new Token(snake);
        thread = new Thread(this);
        thread.start();
     }
@@ -37,16 +41,23 @@ public class SnakeGame extends JFrame implements Runnable, KeyListener {
 
     public void paint(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 500, 500);
+        g.fillRect(0, 0, 400, 400);
         if(!gameOver) {
             snake.draw(g);
-            token.draw(g);
+            token.draw(g,1);
+            token2.draw(g,2);
         }
         else{
+            int x = token2.getScore() + token.getScore();
             g.setColor(Color.CYAN);
-            g.drawString("Game Over",200,250);
+            super.setTitle("Snake :,(");
+            g.drawString("Game Over",150,175);
+            g.drawString("Score: " + x, 150,190);
+            g.drawString("Play Again? (press y)",150,150);
+            game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            }
         }
-    }
+
 
     public void update (Graphics g) {
         paint(g);
@@ -63,13 +74,16 @@ public class SnakeGame extends JFrame implements Runnable, KeyListener {
         for(;;) {
 
             if(!gameOver) {
+                int x = token2.getScore() + token.getScore();
+                super.setTitle("Score: " + x);
                 snake.move();
                 this.checkGameOver();
                 token.snakeCollision();
+                token2.snakeCollision();
             }
             this.repaint();
             try {
-                Thread.sleep(40);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -79,10 +93,10 @@ public class SnakeGame extends JFrame implements Runnable, KeyListener {
     }
 
     public void checkGameOver () {
-        if (snake.getX() < 0 || snake.getX() > 496) {
+        if (snake.getX() < 0 || snake.getX() > 396) {
             gameOver = true;
         }
-        if (snake.getY() < 30 || snake.getY() > 496) {
+        if (snake.getY() < 30 || snake.getY() > 396) {
             gameOver = true;
         }
         if (snake.snakeCollision()) {
@@ -101,6 +115,12 @@ public class SnakeGame extends JFrame implements Runnable, KeyListener {
             }
         }
 
+        if (e.getKeyCode() == KeyEvent.VK_Y) {
+            if (gameOver) {
+                game = new SnakeGame();
+
+            }
+        }
 
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
                     if (snake.getYDir() != 1) {
