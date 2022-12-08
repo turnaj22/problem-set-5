@@ -3,19 +3,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Scanner;
 
 
 public class SnakeGame extends JFrame implements Runnable, KeyListener {
 
-    Snake snake;
-    SnakeGame game;
-    Graphics g;
-    Thread thread;
-    Token token;
-    Token token2;
+    public Snake snake;
+    public SnakeGame game;
+    public Thread thread;
+    private Token token;
+    private Token token2;
 
-    boolean gameOver;
+    public boolean gameOver;
 
 
     public static void main(String[] args) {
